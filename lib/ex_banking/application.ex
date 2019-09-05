@@ -4,9 +4,13 @@ defmodule ExBanking.Application do
   use Application
 
   def start(_type, _args) do
-    children = []
+    import Supervisor.Spec, warn: true
 
-    opts = [strategy: :one_for_one, name: ExBanking.Supervisor]
+    children = [
+      supervisor(ExBanking.Supervisor, [])
+    ]
+
+    opts = [strategy: :one_for_one, name: ExBanking.Application]
     Supervisor.start_link(children, opts)
   end
 end
