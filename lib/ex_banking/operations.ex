@@ -1,6 +1,6 @@
 defmodule ExBanking.Operations do
-  @spec add(number, number) :: number
-  def add(num1, num2), do: num1 + num2
+  @spec sum(number, number) :: number
+  def sum(num1, num2), do: num1 + num2
 
   @spec sub(number, number) :: number
   def sub(num1, num2), do: num1 - num2

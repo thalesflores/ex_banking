@@ -9,7 +9,7 @@ defmodule ExBanking.Accounts.Balance do
   def deposit(balances, amount, currency) do
     balances
     |> get(currency)
-    |> update_balance(amount, currency, &Operations.add/2)
+    |> update_balance(amount, currency, &Operations.sum/2)
     |> return_balance(balances, currency)
   end
 
