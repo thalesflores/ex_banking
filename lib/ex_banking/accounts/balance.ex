@@ -5,6 +5,9 @@ defmodule ExBanking.Accounts.Balance do
 
   alias ExBanking.Operations
 
+  @doc """
+  Increase amount of passed currency in the balance.
+  """
   @spec deposit(balances :: [], amount :: number(), currency :: String.t()) :: [__MODULE__.t()]
   def deposit(balances, amount, currency) do
     balances
@@ -13,6 +16,10 @@ defmodule ExBanking.Accounts.Balance do
     |> return_balance(balances, currency)
   end
 
+  @doc """
+  Returns specific balance to the given currency. In case of the currency does not exist in balance
+  it is returned 0.0
+  """
   @spec get_amount(list(), String.t()) :: float() | nil
   def get_amount(balances, currency) do
     case get(balances, currency) do
@@ -21,6 +28,10 @@ defmodule ExBanking.Accounts.Balance do
     end
   end
 
+  @doc """
+  Decreases amount of money to the give currency. In case the amount is greater than the current amount
+  or there is no amount to the passed currency, it is returned an error of "not enough money"
+  """
   @spec withdraw(balances :: [], amount :: number(), currency :: String.t()) :: list() | {:error, :not_enough_money}
   def withdraw(balances, amount, currency) do
     balances

@@ -5,6 +5,10 @@ defmodule ExBanking.Accounts.User do
 
   @type t :: %__MODULE__{name: String.t(), balances: [Balance.t()]}
 
+  @doc """
+   Validates if the user exists and that process limit requests is reached.
+    The queue size limit is 10
+  """
   @spec available?(user :: String.t()) :: {:error, :too_many_requests_to_user | :user_does_not_exist} | {:ok, true}
   def available?(user) do
     case exist?(user) do
