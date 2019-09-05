@@ -142,4 +142,38 @@ defmodule ExBankingTest do
       assert {:error, :wrong_arguments} = ExBanking.send(@valid_user, @valid_user2, 100.00, @invalid_currency)
     end
   end
+
+  describe "requests limit" do
+    setup do
+      ExBanking.create_user(@valid_user)
+      :ok
+    end
+
+    test "when max requests to the same user is 10 and return success" do
+      all_success =
+        Enum.reduce(0..10, [], fn _requests, acc ->
+          [
+            Task.async(fn ->
+              ExBanking.deposit(@valid_user, @valid_amount, @valid_currency)
+            end)
+            | acc
+          ]
+        end)
+        |> Enum.map(&Task.await/1)
+        |> Enum.all?(fn {status, _} -> status == :ok end)
+
+      assert all_success == true
+    end
+
+    test "when max requests to the same user is 20 and returns some errors" do
+      has_error =
+        Enum.reduce(0..1000, [], fn _requests, acc ->
+          [Task.async(fn -> ExBanking.deposit(@valid_user, @valid_amount, @valid_currency) end) | acc]
+        end)
+        |> Enum.map(&Task.await/1)
+        |> Enum.any?(fn {status, msg} -> {:error, :too_many_requests_to_user} == {status, msg} end)
+
+      assert has_error == true
+    end
+  end
 end
