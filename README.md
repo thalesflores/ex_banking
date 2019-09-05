@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/{thalesflores}/{ex_banking}.png?branch=master)](https://travis-ci.org/{thalesflores}/{ex_banking})
+[![Build Status](https://travis-ci.org/thalesflores/ex_banking.png?branch=master)](https://travis-ci.org/thalesflores/ex_banking)
 
 # ExBanking
 
