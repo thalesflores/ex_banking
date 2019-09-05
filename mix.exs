@@ -8,9 +8,7 @@ defmodule ExBanking.MixProject do
       elixir: "~> 1.9.1",
       build_embedded: Mix.env() == :prod,
       start_permanent: Mix.env() == :prod,
-      deps: deps(),
-      test_coverage: [tool: ExCoveralls],
-      preferred_cli_env: [coveralls: :test, "coveralls.detail": :test, "coveralls.post": :test, "coveralls.html": :test]
+      deps: deps()
     ]
   end
 
@@ -24,8 +22,6 @@ defmodule ExBanking.MixProject do
 
   # Run "mix help deps" to learn about dependencies.
   defp deps do
-    [
-      {:excoveralls, "~> 0.10", only: :test}
-    ]
+    []
   end
 end
